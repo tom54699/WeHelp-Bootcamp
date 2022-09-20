@@ -10,8 +10,16 @@ burger.addEventListener("click",()=>{
     navbar2.style.width="40%"
 })
 // 點擊其他地方關閉導覽列
+window.addEventListener("resize",()=>{
+    console.log(window.innerWidth)
+    if(window.innerWidth>600){
+        navbar2.style.width="0%"; 
+    }
+})
 document.body.addEventListener("click", (e)=>{
-    if(e.target!=navbar2 && e.target!=li&& e.target!=li1&& e.target!=li2&& e.target!=li3&&e.target!=burger1){
-        navbar2.style.width="0%"
+    if(window.innerWidth<=600){
+        if(e.target!=navbar2 && e.target!=li&& e.target!=li1&& e.target!=li2&& e.target!=li3&&e.target!=burger1){
+            navbar2.style.width="0%";    
+        }    
     }
 })
