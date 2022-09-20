@@ -5,10 +5,12 @@ html{
 }
 body{
     margin: 0;background-color: rgb(33, 33, 33);
+    position: relative; /* 讓navbar2定位用的 */
 }
 nav{
     background-color: rgb(64, 72, 56);
     display: flex;justify-content: space-between;
+    
 }
 nav>ul{
     list-style: none;
@@ -40,7 +42,8 @@ nav>ul>li:hover{
 }
 */
 .navbar2{
-    width:0%;height:auto;overflow: hidden;
+    width:0%;height:100%;overflow: hidden;
+    z-index: 10;
     margin-block-start:0px;
     position: absolute;right: 0px;top:0px;
     display:flex;flex-direction: column;justify-content: center;

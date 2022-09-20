@@ -7,7 +7,7 @@ let li1=document.getElementById("li1");
 let li2=document.getElementById("li2");
 let li3=document.getElementById("li3");
 burger.addEventListener("click",()=>{
-    navbar2.style.width="40%"
+    navbar2.style.width="50%"
 })
 // 點擊其他地方關閉導覽列
 window.addEventListener("resize",()=>{
