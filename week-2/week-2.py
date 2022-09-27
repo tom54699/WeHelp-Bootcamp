@@ -84,11 +84,9 @@ def maxProduct(nums):
     # 請用你的程式補完這個函式的區塊
     a=[]
     b=[]
-    for x in nums:
-        if x>=0:
-            a=a+[x]
-        if x<0:
-            b=b+[x]
+    a = [x for x in nums if x>=0]
+    b = [x for x in nums if x<0]
+
     # 如果只有一個正數，負數，沒得選
     if (len(a)<2 and len(b)<2 ):
         max_value = max(nums)
