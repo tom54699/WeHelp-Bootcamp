@@ -34,28 +34,28 @@ def avg(data):
     avg=salary/avgnum
     print(avg)
 avg({
-"employees":[
-{
-"name":"John",
-"salary":30000,
-"manager":False
-},
-{
-"name":"Bob",
-"salary":60000,
-"manager":True
-},
-{
-"name":"Jenny",
-"salary":50000,
-"manager":False
-},
-{
-"name":"Tony",
-"salary":40000,
-"manager":False
-}
-]
+    "employees":[
+        {
+            "name":"John",
+            "salary":30000,
+            "manager":False
+        },
+        {
+            "name":"Bob",
+            "salary":60000,
+            "manager":True
+        },
+        {
+            "name":"Jenny",
+            "salary":50000,
+            "manager":False
+        },
+        {
+            "name":"Tony",
+            "salary":40000,
+            "manager":False
+        }
+    ]
 }) # 呼叫 avg 函式
 
 """

@@ -5,20 +5,19 @@
 以假設 max 一定大於 min 且為整數，step 為正整數。
 
 */
-
 function calculate(min, max, step){
     // 請用你的程式補完這個函式的區塊
+    let result=0;
     if(max>min && step>0){
-        n=Math.floor((max-min)/step)+1
-        last=min+(n-1)*step
-        let result=0
-        result=n*(min+last)/2
+        for(let x=min;x<=max;x+=step){
+            result+=x
+        }
         console.log(result)
     }
 }
-    calculate(1, 3, 1); // 你的程式要能夠計算 1+2+3，最後印出 6
-    calculate(4, 8, 2); // 你的程式要能夠計算 4+6+8，最後印出 18
-    calculate(-1, 2, 2); // 你的程式要能夠計算 -1+1，最後印出 0
+calculate(1, 3, 1); // 你的程式要能夠計算 1+2+3，最後印出 6
+calculate(4, 8, 2); // 你的程式要能夠計算 4+6+8，最後印出 18
+calculate(-1, 2, 2); // 你的程式要能夠計算 -1+1，最後印出 0
 // 用數學公式+Math.floor處理
 
 /* 
@@ -31,41 +30,42 @@ manager 欄位標註為 False (Python) 或 false (JavaScript) 的員工，程式
 */
 function avg(data){
     // 請用你的程式補完這個函式的區塊
-    let salary=0
-    let avgnum=0
+    let salary=0;
+    let avgnum=0;
     for(let x=0;x<data["employees"].length;x++){
-        salary+=data["employees"][x]["salary"];
-        avgnum+=1;
+        if(data["employees"][x]["manager"]==false){
+            salary+=data["employees"][x]["salary"];
+            avgnum+=1;
+        }
     }
-    let avg=salary/avgnum
-    console.log("總薪資:"+salary)
-    console.log("總人數:"+avgnum)
+    let avg=salary/avgnum;
     console.log("平均薪資:"+avg)
 }
 avg({
-"employees":[
-{
-"name":"John",
-"salary":30000,
-"manager":false
-},
-{
-"name":"Bob",
-"salary":60000,
-"manager":true
-},
-{
-"name":"Jenny",
-"salary":50000,
-"manager":false
-},
-{
-"name":"Tony",
-"salary":40000,
-"manager":false
-}
-]
+    "employees":[
+        {
+            "name":"John",
+            "salary":30000,
+            "manager":false
+        },
+        {
+            "name":"Bob",
+            "salary":60000,
+            "manager":true
+        },
+        {
+            "name":"Jenny",
+            "salary":50000,
+            "manager":false
+        },
+        {
+            "name":"Tony",
+            "salary":40000,
+            "manager":false
+        }
+    ]
 }); // 呼叫 avg 函式
+
 
 /*
 
@@ -139,7 +139,7 @@ function maxProduct(nums){
     // 如果正數和負數各有兩個或以上，那就正的最大的前兩個和負的絕對值後最大的兩個來比
     else{
         function multiply(num){
-            let absList = b.map(Math.abs); // 絕對值
+            let absList = num.map(Math.abs); // 絕對值
             let max_value = Math.max(...absList);
             let index=absList.indexOf(max_value);
             absList.splice(index,1);
