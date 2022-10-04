@@ -30,6 +30,7 @@ let fetch_img=[]
 function getdata(){
     let url="https://padax.github.io/taipei-day-trip-resources/taipei-attractions-assignment.json";
     fetch(url).then(response=> response.json()).then(data=>{
+        console.log(data)
         data_length=data["result"]["results"].length
         for(let i=0;i<data_length;i++){
             let new_fetch_stitle=data["result"]["results"][i]["stitle"]
