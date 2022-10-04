@@ -90,8 +90,9 @@ getdata().then(data=>{
                 image.setAttribute("src",`${img_url}`)
                 image.setAttribute("class","image")
                 image_star.setAttribute("src","1142010.png")
-                image.setAttribute("alt","沒有圖囉")
+                image.setAttribute("onerror","this.src='1581909112681.jpg'")
                 text.textContent=fetch_stitle[i]
+            
 
                 console.log(pic_node)
                 pic_node[i].appendChild(image)
@@ -107,10 +108,6 @@ getdata().then(data=>{
     // Load more
     let load = document.getElementById("load")
     load.addEventListener("click",gerneratediv)
-    let img=document.getElementsByClassName9("image")
-    img.onerror = function () {
-        this.style.display = "none";
-    }
 })
 
 

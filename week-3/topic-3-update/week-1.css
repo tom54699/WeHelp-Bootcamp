@@ -171,6 +171,7 @@ main{
     object-fit: cover;
     width:270px;height: 200px;
 }
+
 .star{
     position: absolute;top:0px; right:0px;
     padding: 5px;
