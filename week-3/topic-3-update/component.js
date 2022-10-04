@@ -43,9 +43,9 @@ getdata().then(data=>{
         let image=document.createElement("img")
         let text=document.createElement("div")
 
-        let img_url=fetch_img[i]
+        let img_url=fetch_img[i+2]
         image.setAttribute("src",`${img_url}`)
-        text.textContent=fetch_stitle[i]
+        text.textContent=fetch_stitle[i+2]
 
         pic_node[i].appendChild(image)
         title_node[i].appendChild(text)
@@ -58,7 +58,7 @@ getdata().then(data=>{
     function gerneratediv(){
         static_block_node=document.querySelectorAll(".block")
         console.log(static_block_node)
-        if (static_block_node.length <= 42){
+        if (static_block_node.length <= 58){
             // 建立一組8張的block
             for(let i=static_block_node.length;i<static_block_node.length+8;i++){
                 let block=document.createElement("div")
@@ -89,6 +89,7 @@ getdata().then(data=>{
                 let img_url=fetch_img[i]
                 image.setAttribute("src",`${img_url}`)
                 image_star.setAttribute("src","1142010.png")
+                image.setAttribute("alt","沒有圖囉")
                 text.textContent=fetch_stitle[i]
 
                 console.log(pic_node)
