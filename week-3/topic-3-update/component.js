@@ -88,6 +88,7 @@ getdata().then(data=>{
 
                 let img_url=fetch_img[i]
                 image.setAttribute("src",`${img_url}`)
+                image.setAttribute("class","image")
                 image_star.setAttribute("src","1142010.png")
                 image.setAttribute("alt","沒有圖囉")
                 text.textContent=fetch_stitle[i]
@@ -106,6 +107,10 @@ getdata().then(data=>{
     // Load more
     let load = document.getElementById("load")
     load.addEventListener("click",gerneratediv)
+    let img=document.getElementsByClassName9("image")
+    img.onerror = function () {
+        this.style.display = "none";
+    }
 })
 
 

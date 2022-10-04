@@ -189,7 +189,7 @@ main{
     position: absolute; 
     bottom: 0%;left: 50%;
     transform: translate(-50%);
-    background:rgb(205, 155, 108);
+    background:rgba(255,255,255,0.5);
     padding-top: 3px; padding-bottom: 3px;
 }
  /* 替代做法 但後來發現背景透明文字不透明可以用rgba取代
