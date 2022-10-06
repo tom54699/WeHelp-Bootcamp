@@ -1,3 +1,4 @@
+import csv
 import urllib.request as request
 import json
 
@@ -15,8 +16,12 @@ for x in range(data_len):
         longitude=data["result"]["results"][x]["longitude"]
         latitude=data["result"]["results"][x]["latitude"]
         jpg_url=data["result"]["results"][x]["file"].lower().split("jpg")[0]+"jpg"   # 裡面有兩個jpg是大寫拉，被陰了
-        fullData=[stitle,address,longitude,latitude,jpg_url]
+        fullData=stitle,address,longitude,latitude,jpg_url
         #fullData=f'{stitle},{address},{longitude},{jpg_url}'
-        with open("data.csv",mode="a",encoding="utf-8") as file:
-            file.write(",".join(fullData)+"\n")
+        with open('1.csv','a',encoding="utf-8-sig",newline='') as file:
+            writer = csv.writer(file)
+            for row in [fullData]:
+                print(list(row))
+                writer.writerow(list(row))
+    
 

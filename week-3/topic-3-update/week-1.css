@@ -7,6 +7,16 @@ body{
     margin: 0;background-color: rgb(33, 33, 33);
     position: relative; /* 讓navbar2定位用的 */
 }
+/* weather 滾動條 */
+.weather{
+    width:100%;
+    height:auto;
+    background-color: rgb(170, 147, 119);color: rgb(245, 241, 236);
+    font-size: 15px;
+    display: flex;justify-content: center;align-items: center;
+    letter-spacing: 2px;
+
+}
 nav{
     background-color: rgb(64, 72, 56);
     display: flex;justify-content: space-between;
