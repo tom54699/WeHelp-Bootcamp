@@ -16,8 +16,9 @@ def index():
 @app.route("/member",methods=["GET"])
 def member():
     if "account" in session:
+        account = session["account"]
         print(session) 
-        return render_template("member.html")
+        return render_template("member.html",account=account)
     else:
         return redirect("/")
 
@@ -42,6 +43,7 @@ def err():
 def signout():
     del session["account"]
     del session["password"]
+    # session.clear() 也可以
     return redirect("/")
 
 @app.route("/squareCount",methods=["POST"])  
