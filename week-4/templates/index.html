@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首頁</title>
+    <link rel="stylesheet" type="text/css" href="static/CSS/index.css">
+</head>
+<body>
+    <nav>
+        <div>
+            <div>歡迎光臨，請輸入帳號密碼</div>
+        </div>
+    </nav>
+    <main>
+        <div>
+            <form action="/signin" method="POST">
+                <label>登入系統</label>
+                <label>帳號 <input type="text" name="account" placeholder="請輸入帳號"/></label>
+                <label>密碼 <input type="password" name="password" placeholder="請輸入密碼"/></label>
+                <div><button>登入</button></div>
+            </form>
+        </div>
+    </main>
+    <br/>
+    <hr/>
+    <main>
+        <div>
+            <form action="/squareCount" method="POST">
+                <label>計算正整數的平方</label>
+                <label>正整數 <input type="text" name="squareNumber" placeholder="請輸入正整數" required pattern="[0-9]*" /></label>
+                <div><button>計算</button></div>
+            </form>
+        </div>
+    </main>
+  
+</body>
+</html>

@@ -16,12 +16,15 @@ def getTitle(url):
     normal_movie=[]
     bad_movie=[]
     for title in titles:
-        if title.a.string[0:4]=="[好雷]":
-            good_movie.append(title.a.string)
-        elif title.a.string[0:4]=="[普雷]":
-            normal_movie.append(title.a.string)
-        elif title.a.string[0:4]=="[負雷]":
-            bad_movie.append(title.a.string)
+        
+        if title.a !=None:
+            if title.a.string[0:4]=="[好雷]":
+                good_movie.append(title.a.string)
+                print(good_movie)
+            elif title.a.string[0:4]=="[普雷]":
+                normal_movie.append(title.a.string)
+            elif title.a.string[0:4]=="[負雷]":
+                bad_movie.append(title.a.string)
     next_link=root.find("a", string="‹ 上頁")
     return "https://www.ptt.cc/"+next_link["href"],good_movie,normal_movie,bad_movie
 
