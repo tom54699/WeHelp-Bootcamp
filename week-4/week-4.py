@@ -1,7 +1,7 @@
 from flask import Flask,request,render_template,redirect,session,url_for
 
 app=Flask(__name__)
-app.secret_key="123456"
+app.config['SECRET_KEY'] = b'\xeb\xe3\xceF\xf6\xa1u\t&\x95\xf8\xefPK\xc7\xa8'
 
 account={
     "account":"test",
@@ -24,8 +24,8 @@ def member():
 
 @app.route("/signin",methods=["POST"])
 def signin():
-    account = request.form["account"]
-    password = request.form["password"]
+    account = request.form.get("account")
+    password = request.form.get("password")
     if account == "" or password == "":
         return redirect("/error?error=請輸入帳號、密碼")
     if account != "test" or password != "test":
@@ -48,7 +48,7 @@ def signout():
 
 @app.route("/squareCount",methods=["POST"])  
 def squareCount():
-    squareNumber = request.form["squareNumber"]
+    squareNumber = request.form.get("squareNumber")
     if squareNumber == None:
         return redirect("/error?error=請輸入數字")
     squareNumber = int(squareNumber)
@@ -57,8 +57,6 @@ def squareCount():
 
 @app.route("/square/<number>")  # 這邊css要改路徑
 def square(number):
-        number = int(number)
-        number = number**2
         return render_template("square.html",number=str(number))
 
 
