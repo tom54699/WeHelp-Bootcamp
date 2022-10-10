@@ -49,7 +49,8 @@ def signout():
 @app.route("/squareCount",methods=["POST"])  
 def squareCount():
     squareNumber = request.form.get("squareNumber")
-    if squareNumber == None:
+    print(squareNumber)
+    if squareNumber == "":
         return redirect("/error?error=請輸入數字")
     squareNumber = int(squareNumber)
     squareNumber = squareNumber**2
