@@ -46,6 +46,7 @@ def signout():
     # session.clear() 也可以
     return redirect("/")
 
+"""
 @app.route("/squareCount",methods=["POST"])  
 def squareCount():
     squareNumber = request.form.get("squareNumber")
@@ -55,10 +56,13 @@ def squareCount():
     squareNumber = int(squareNumber)
     squareNumber = squareNumber**2
     return redirect(url_for("square",number=squareNumber))
+"""
 
-@app.route("/square/<number>")  # 這邊css要改路徑
+@app.route("/square/<number>") 
 def square(number):
-        return render_template("square.html",number=str(number))
+    number = int(number)
+    number = number**2
+    return render_template("square.html",number=str(number))
 
 
 if __name__ == "__main__":

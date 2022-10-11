@@ -30,13 +30,41 @@ main>div>form{
     display: flex;flex-direction: column;
     align-items: center;justify-content: center;
 }
-label{
+form>label{
     margin-bottom: 10px;
 }
-label:first-child{
+form>label:first-child{
     font-weight: bold;margin-bottom: 5px;
 }
 
 button{
     display: block;
+}
+
+/*    正整數平方區塊      */
+
+article{
+    width: 100%;display: flex; flex-direction: column;
+    justify-content: center;align-items: center;
+    margin-top: 40px;
+}
+
+article>div{
+    width: 1200px;
+}
+article>div>div{
+    display: flex;flex-direction: column;
+    align-items: center;justify-content: center;
+    
+}
+article>div>div>div,label{
+    margin-bottom: 10px;
+}
+
+article>div>div>div:first-child{
+    font-weight: bold;margin-bottom: 5px;
+}
+
+a{
+    text-decoration: none; color: black
 }
