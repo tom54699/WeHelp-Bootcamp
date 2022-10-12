@@ -1,5 +1,6 @@
 from flask import Flask, make_response,request,render_template,redirect,session,url_for
-from requests import delete
+from jinja2 import Undefined
+
 
 app=Flask(__name__)
 app.config['SECRET_KEY'] = b'\xeb\xe3\xceF\xf6\xa1u\t&\x95\xf8\xefPK\xc7\xa8'
@@ -75,9 +76,16 @@ def squareCount():
 
 @app.route("/square/<number>") 
 def square(number):
-    number = int(number)
-    number = number**2
-    return render_template("square.html",number=str(number))
+    if number == "":
+        return redirect("/error?error=請輸入數字")
+    elif number == "undefined":
+        return redirect("/error?error=請輸入數字")
+    else:
+        print(number)
+        number = int(number)
+        number = number**2
+        return render_template("square.html",number=str(number))
+
 
 
 if __name__ == "__main__":
