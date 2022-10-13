@@ -1,5 +1,6 @@
 from flask import Flask, make_response,request,render_template,redirect,session,url_for
-from jinja2 import Undefined
+from cryptography.fernet import Fernet
+
 
 
 app=Flask(__name__)
@@ -9,7 +10,14 @@ account={
     "account":"test",
     "password":"test"
 }
+# 加密cookie
 
+key = Fernet.generate_key()
+print(key)
+f = Fernet(key)
+print(f)
+token = f.encrypt(b"test")
+print(token)
 
 @app.route("/",methods=["GET"])
 def index():
@@ -26,9 +34,15 @@ def member():
         return redirect("/")
     """
     if "account" in request.cookies:
-        account = request.cookies.get("account")
-        print(account) 
-        return render_template("member.html",account=account)
+        account = request.cookies.get("account") # 現在是字串，要換成byte
+        account = bytes(account, encoding="utf-8")
+        print("account:",account)
+        account = f.decrypt(account) # byte型態 
+        print("account:",account)
+        if account == b"test":
+            return render_template("member.html",account=account)
+        else:
+            return redirect("/error?error=Cookie錯誤喔~")
     else:
         print("沒有驗證!")
         return redirect("/")
@@ -44,7 +58,7 @@ def signin():
     #session["account"] = account
     #session["password"] = password
     resp = make_response(redirect("/member"))
-    resp.set_cookie(key="account",value="test")
+    resp.set_cookie(key="account",value=token)
     return  resp
 
 @app.route("/error",methods=["GET"])
