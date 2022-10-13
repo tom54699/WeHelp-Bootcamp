@@ -1,10 +1,12 @@
 from flask import Flask, make_response,request,render_template,redirect,session,url_for
 from cryptography.fernet import Fernet
-
+from flask_cors import CORS
 
 
 app=Flask(__name__)
 app.config['SECRET_KEY'] = b'\xeb\xe3\xceF\xf6\xa1u\t&\x95\xf8\xefPK\xc7\xa8'
+
+CORS(app,supports_credentials=True)
 
 account={
     "account":"test",
@@ -13,11 +15,9 @@ account={
 # 加密cookie
 
 key = Fernet.generate_key()
-print(key)
 f = Fernet(key)
-print(f)
 token = f.encrypt(b"test")
-print(token)
+
 
 @app.route("/",methods=["GET"])
 def index():
@@ -40,6 +40,7 @@ def member():
         account = f.decrypt(account) # byte型態 
         print("account:",account)
         if account == b"test":
+            account = account.decode("utf-8")
             return render_template("member.html",account=account)
         else:
             return redirect("/error?error=Cookie錯誤喔~")
