@@ -4,7 +4,7 @@ from flask_cors import CORS
 
 
 app=Flask(__name__)
-app.config['SECRET_KEY'] = b'\xeb\xe3\xceF\xf6\xa1u\t&\x95\xf8\xefPK\xc7\xa8'
+# app.config['SECRET_KEY'] = b'\xeb\xe3\xceF\xf6\xa1u\t&\x95\xf8\xefPK\xc7\xa8'
 
 CORS(app,supports_credentials=True)
 
@@ -21,6 +21,7 @@ token = f.encrypt(b"test")
 
 @app.route("/",methods=["GET"])
 def index():
+    print(app.config)
     return render_template("index.html")
 
 @app.route("/member",methods=["GET"])

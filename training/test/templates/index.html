@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            width: 100px;height: 50px;border: 1px black solid;
+        }
+    </style>
+</head>
+<body>
+    <label>計算數字平方<input id="num" type=text placeholder="輸入數字"/></label>
+    <button id="button">送出</button>
+    <br/>
+    <br/>
+    <div class="box"></div>
+    <br/>
+    <button id="del">刪除結果</button>
+
+    <script>
+        let num = document.getElementById("num")
+        let button = document.getElementById("button")
+        let del = document.getElementById("del")
+        let value
+        let ansbox
+        num.addEventListener("input",function(e){
+            value = e.target.value
+        })
+        button.addEventListener("click",function(){
+            fetch("/count",{
+                method:"POST",
+                headers:{"content-type":"application/json"},
+                body: JSON.stringify({
+                    num:value
+                })
+            }).then(function(resp){
+                return resp.json()
+            }).then(function(json){
+                console.log(json["num"])
+                ansbox = document.getElementsByClassName("box")
+                answer = document.createElement("div")
+                answer.textContent=json["num"]
+                ansbox[0].appendChild(answer)
+            })
+        })
+        
+    </script>
+</body>
+</html>
