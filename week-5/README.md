@@ -118,6 +118,49 @@ SELECT member.name,message.member_id, AVG(message.like_count) AS 所有留言平
 - - -
 作業完成，謝謝老師看完，很長一串。
 
+>**額外要求**  
+>我們不只要記錄留言按讚的數量，還要紀錄每一個留言的按讚會員是誰，支援以下使用場合：  
+- 可以根據留言編號取得該留言有哪些會員按讚。  
+- 會員若是嘗試對留言按讚：要能先檢查是否曾經按過讚，然後才將按讚的數量 +1 並且記錄按讚的會員是誰。  
+
+剛好有看到多對多的概念(還要精進)，所以知道有 intermediary table 這個概念，所以我也創了一個 table，來放 content_id 和 like_member_id。  
+> website資料庫現在有的總資料表  
+> ![image](https://user-images.githubusercontent.com/108926305/196335363-858ab88a-0d4a-41da-9adf-8d81eeae72e9.png)  
+> 我新增了一些貼文的按讚會員的數據進去 post_like 資料表，這邊單純紀錄文章id和對應的按讚會員標號。  
+> 印出 post_like table  
+> ![image](https://user-images.githubusercontent.com/108926305/196335654-6bb9385a-4d8b-4553-b38a-c8436281783f.png)  
+> 那我這邊開始設想 "根據留言編號取得該留言有哪些會員按讚"，我可以用inner join來做查詢。  
+> 這邊可以確定我取得了按讚會員的編號
+> ![image](https://user-images.githubusercontent.com/108926305/196335869-5d7f0688-72c6-47b9-8b10-3ff6e5d02049.png)  
+- - -
+> 至於第二項"會員若是嘗試對留言按讚：要能先檢查是否曾經按過讚，然後才將按讚的數量 +1 並且記錄按讚的會員是誰。"  
+> 根據資料庫設計，我可以在會員嘗試按讚時，先去比對資料庫中這篇文章的按讚like_member_id，如果已經存在代表按過了。  
+> 如果沒按過就新增到資料庫，代表他按過了  
+- - -  
+這邊我再把三個資料庫的聯繫分為兩個版本印出來，一個是會員導向，一個是文章導向  
+>會員導向(主要是觀察會員對哪篇文章按過讚)
+```
+SELECT post_like.like_member_id,member.name,post_like.content_id,message.content FROM message INNER JOIN post_like ON message.id = post_like.content_id INNER JOIN member ON member.id = post_like.like_member_id;
+```  
+![image](https://user-images.githubusercontent.com/108926305/196336908-6d06951f-02de-4e4a-ac33-9187678f4515.png)  
+>文章導向(主要是觀察文章被誰按過讚)  
+```
+SELECT post_like.content_id,message.content,post_like.like_member_id,member.name FROM member INNER JOIN post_like ON member.id = post_like.like_member_id INNER JOIN message ON message.id = post_like.content_id ORDER BY content_id ASC;
+```  
+![image](https://user-images.githubusercontent.com/108926305/196338408-57573509-78a1-44b9-bbbb-3631b665743b.png)  
+- - -
+- 查詢特定會員按過誰讚  
+- 查詢特定文章誰按過讚  
+![image](https://user-images.githubusercontent.com/108926305/196338769-11310b10-5b66-46eb-99fa-6e8eeccb931a.png)
+
+
+
+
+
+
+
+
+
 
 
 
