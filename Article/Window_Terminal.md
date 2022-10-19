@@ -1,4 +1,4 @@
-# Window Terminal 下載安裝並更換背景圖片  
+# Window Terminal (1) 下載安裝並更換背景圖片  
 ## 前言  
 ---
 為了更像一個工程師，所以第一次使用終端機來操作MySQL。整次使用下來發現原生的Terminal很陽春，但是我不相信各位神人大大都用這個原生終端機。  
@@ -39,7 +39,9 @@
 - - -
 最後分享我的改造成果，不只修改背景圖，有機會未來在分享其他的模組改造~  
 
-![成品](https://user-images.githubusercontent.com/108926305/196583906-bafe123a-1109-42b9-acf3-a6656c53ac83.jpg)
+![成品](https://user-images.githubusercontent.com/108926305/196583906-bafe123a-1109-42b9-acf3-a6656c53ac83.jpg)  
+
+謝謝大家~
 
 
 
