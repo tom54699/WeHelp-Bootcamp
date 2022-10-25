@@ -42,8 +42,8 @@ def signup():
                 regi_password = request.form["regi_password"]
                 print(regi_name,regi_account,regi_password)
                 # 確認account有無重複
-                check = f"select*from member where account = '{regi_account}';"
-                cursor.execute(check)
+                check = "select*from member where account = %s;"
+                cursor.execute(check,(regi_account,))
     
                 if cursor.rowcount != 0:
                     return redirect("/error?error=帳號已被註冊")
@@ -65,8 +65,8 @@ def signin():
 
     if account == "" or password == "":
         return redirect("/error?error=請輸入帳號、密碼")
-    check = f"select*from member where account = '{account}';"
-    cursor.execute(check)
+    check = "select*from member where account = %s;"
+    cursor.execute(check,(account,))
 
     if cursor.rowcount == 0:
         return redirect("/error?error=此帳號沒有註冊")
