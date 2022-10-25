@@ -39,8 +39,10 @@ contentSend.addEventListener("click",async function(){
         console.log(messageNode)
         message = document.createElement("div")
         message.textContent = `${messageUserName}: ${messageContent}`
-        messageNode.appendChild(message)
-
+        messageNode.prepend(message)
+        if (contentInput.value !="") {
+            contentInput.value = "";
+        }
 
     }
     catch(err){
@@ -53,13 +55,13 @@ async function getMessage(){
         let response = await fetch("/getMessage")
         let data = await response.json()
         console.log(data)
-
+        let historyContent
         messageNode = document.querySelector(".message")
         for(let i=1;i<=Object.keys(data).length;i++){
-            content = data[`message${i}`]
+            historyContent = data[`message${i}`]
             message = document.createElement("div")
-            message.textContent = `${content}`
-            messageNode.appendChild(message)
+            message.textContent = `${historyContent}`
+            messageNode.prepend(message)
         }
     }
     catch(err){
