@@ -7,6 +7,29 @@ contentInput.addEventListener("input",function(e){
     content = e.target.value
 })
 
+let historyContentLength;
+async function getMessage(){
+    try{
+        let response = await fetch("/getMessage")
+        let data = await response.json()
+        console.log("歷史資料",data)
+        let historyContent
+        messageNode = document.querySelector(".message")
+        historyContentLength = Object.keys(data).length
+        for(let i=1;i<=historyContentLength;i++){
+            historyContent = data[`message${i}`]
+            message = document.createElement("div")
+            message.textContent = `${historyContent}`
+            message.id = i
+            messageNode.prepend(message)
+        }
+    }
+    catch(err){
+        console.log("fetch failed:",err)
+    }
+}
+getMessage()
+
 let headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
@@ -36,8 +59,10 @@ contentSend.addEventListener("click",async function(){
         messageUserName = data["name"]
         messageTime = data["time"]
         messageNode = document.querySelector(".message")
-        console.log(messageNode)
         message = document.createElement("div")
+        message.id = messageId
+        console.log(message)
+        console.log(messageId)
         message.textContent = `${messageUserName}: ${messageContent}`
         messageNode.prepend(message)
         if (contentInput.value !="") {
@@ -49,23 +74,3 @@ contentSend.addEventListener("click",async function(){
         console.log("fetch failed:",err)
     }
 })
-
-async function getMessage(){
-    try{
-        let response = await fetch("/getMessage")
-        let data = await response.json()
-        console.log(data)
-        let historyContent
-        messageNode = document.querySelector(".message")
-        for(let i=1;i<=Object.keys(data).length;i++){
-            historyContent = data[`message${i}`]
-            message = document.createElement("div")
-            message.textContent = `${historyContent}`
-            messageNode.prepend(message)
-        }
-    }
-    catch(err){
-        console.log("fetch failed:",err)
-    }
-}
-getMessage()

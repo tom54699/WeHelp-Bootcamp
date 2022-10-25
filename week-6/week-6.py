@@ -117,7 +117,7 @@ def sendmessage():
     for i in cursor:
         data = {
             "content": content,
-            "message_id": i[2],
+            "message_id": i[1],
             "name": i[0],
             "time":i[4]
         }
