@@ -132,10 +132,21 @@ def getMessage():
     cursor.execute(check)
     if cursor.rowcount == 0:
         return redirect("/error?error=資料庫找不到文章")
+    
     data = {}
     for i in cursor:
-        data.update({f"message{i[1]}":f"{i[0]}: {i[3]}"})
+        # 傳送實際id 未來要刪除可能比較好做
+        data.update({f"{i[1]}":f"{i[0]}: {i[3]}"})
     return jsonify(data)
+
+@app.route("/deleteAll",methods=["DELETE"])
+def deleteAll():
+    # 有兩種方式
+    delete = "TRUNCATE TABLE message;"  #這種會把資料全部清空,id也歸零
+    # delete = "TRUNCATE TABLE message;"
+    cursor.execute(delete)
+    mydb.commit()
+    return jsonify({"status":"成功清除"})
 
 
 if __name__ == "__main__":

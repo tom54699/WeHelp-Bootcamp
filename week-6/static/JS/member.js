@@ -13,14 +13,15 @@ async function getMessage(){
         let response = await fetch("/getMessage")
         let data = await response.json()
         console.log("歷史資料",data)
+        console.log("實際的留言id",Object.keys(data)[0])
         let historyContent
         messageNode = document.querySelector(".message")
         historyContentLength = Object.keys(data).length
-        for(let i=1;i<=historyContentLength;i++){
-            historyContent = data[`message${i}`]
+        for(let i=0;i<=historyContentLength-1;i++){
+            historyContent = data[`${Object.keys(data)[i]}`]
             message = document.createElement("div")
             message.textContent = `${historyContent}`
-            message.id = i
+            message.id = Object.keys(data)[i]
             messageNode.prepend(message)
         }
     }
@@ -65,10 +66,36 @@ contentSend.addEventListener("click",async function(){
         console.log(messageId)
         message.textContent = `${messageUserName}: ${messageContent}`
         messageNode.prepend(message)
+
+        // 清空input的值
         if (contentInput.value !="") {
             contentInput.value = "";
         }
+        // 輸入值刪除
+        content = ""
 
+    }
+    catch(err){
+        console.log("fetch failed:",err)
+    }
+})
+
+let deleteAll = document.getElementById("deleteAll")
+deleteAll.addEventListener("click",async function(){
+    let child = messageNode.lastElementChild
+    while (child) { 
+        messageNode.removeChild(child); 
+        child = messageNode.lastElementChild; 
+    } 
+    try{
+        const url = "/deleteAll"
+        const config = {
+            method: "DELETE",
+            headers: headers,
+        }
+        let response = await fetch(url,config)
+        let data = await response.json()
+        console.log(data)
     }
     catch(err){
         console.log("fetch failed:",err)
