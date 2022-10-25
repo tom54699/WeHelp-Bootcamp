@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box1{
+            background-color: antiquewhite;
+            width: 200px;height: 100px;
+        }
+        .box2{
+            background-color: rgb(174, 214, 154);
+            width: 200px;height: 100px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="drag-drop-basic">
+        <div class="box1" id="source-container">
+          <div id="drag-source" draggable="true">1</div>
+        </div>
+        <div class="box2" id="target-container"></div>
+    </div> 
+    <script>
+        let dragSource = document.querySelector("#drag-source")
+        dragSource.addEventListener("dragstart",dragStart)
+
+        function dragStart(e){
+            console.log("dragStart")
+            e.dataTransfer.setData("text/plain",e.target.id)
+        }
+    </script>
+</body>
+</html>
