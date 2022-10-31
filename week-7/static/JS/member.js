@@ -124,7 +124,6 @@ nameQuery.addEventListener("click",async function(){
         let nameQueryNode = document.querySelector(".nameQuery")
         nameQueryResult = document.createElement("div")
         // 如果是null
-        console.log(data["data"]== "null")
         if(data["data"] == "null"){
             nameQueryResult.textContent = "查無此帳號"
             nameQueryNode.append(nameQueryResult)
@@ -166,7 +165,6 @@ nameUpdate.addEventListener("click",async function(){
         let response = await fetch(url,config)
         let data = await response.json()
         console.log("姓名查詢回傳的資料",data)
-        console.log("姓名查詢回傳的資料",data["data"])
         // 準備append資料
         let nameUpdateNode = document.querySelector(".nameUpdate")
         let welcomeNode = document.querySelector(".welcome")
