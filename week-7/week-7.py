@@ -194,10 +194,10 @@ def member_name_query():
 def update_name():
     try:
         if "name" in session:
-            name = session["name"]
+            account = session["account"]
             request_name  = request.json.get("name")
-            name_query_sql = "UPDATE member SET name=%s WHERE name=%s;"
-            cursor.execute(name_query_sql,(request_name,name,))
+            name_query_sql = "UPDATE member SET name=%s WHERE account=%s;"
+            cursor.execute(name_query_sql,(request_name,account,))
             mydb.commit()
             print("更新狀態",cursor.rowcount)
             if cursor.rowcount > 0:

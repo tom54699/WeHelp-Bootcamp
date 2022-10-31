@@ -170,6 +170,8 @@ nameUpdate.addEventListener("click",async function(){
         let welcomeNode = document.querySelector(".welcome")
         welcomeUpdate = document.createElement("div")
         nameUpdateResult = document.createElement("div")
+        console.log(welcomeNode.childNodes)
+        console.log(welcomeNode.firstElementChild)
         // 如果是error
         if(data["error"]== "true"){
             welcomeUpdate.textContent = `恭喜你${nameUpdateValue}先生/小姐，成功登入系統`
