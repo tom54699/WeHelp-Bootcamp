@@ -185,17 +185,20 @@ def member_name_query():
 
 def update_name():
     try:
-        name = session["name"]
-        request_name  = request.json.get("name")
-        name_query_sql = "UPDATE member SET name=%s WHERE name=%s;"
-        cursor.execute(name_query_sql,(request_name,name,))
-        mydb.commit()
-        print("更新狀態",cursor.rowcount)
-        if cursor.rowcount > 0:
-            session["name"] = request_name
-            return jsonify(ok = "true")
+        if "name" in session:
+            name = session["name"]
+            request_name  = request.json.get("name")
+            name_query_sql = "UPDATE member SET name=%s WHERE name=%s;"
+            cursor.execute(name_query_sql,(request_name,name,))
+            mydb.commit()
+            print("更新狀態",cursor.rowcount)
+            if cursor.rowcount > 0:
+                session["name"] = request_name
+                return jsonify(ok = "true")
+            else:
+                return jsonify(error = "true")
         else:
-            return jsonify(error = "true")
+            return jsonify(error_message)
     except Exception as ex:
         print(ex)
         return jsonify(error = "true")
