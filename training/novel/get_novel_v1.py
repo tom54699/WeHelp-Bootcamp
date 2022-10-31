@@ -2,7 +2,7 @@ import urllib.request as req
 import bs4
 import unicodedata
 from opencc import OpenCC
-import concurrent.futures
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import time
 
 # 小說下載器
@@ -79,15 +79,16 @@ def download(i):
     d1.get_novel(d1.chapterHrefs[i],i)
 start_time = time.time()
 
-with concurrent.futures.ThreadPoolExecutor(max_workers=35) as executor:
+with ThreadPoolExecutor(max_workers=10) as executor:
     executor.map(download, urls)
 
+end_time = time.time()
+print(f"{end_time - start_time} 秒爬取 {d1.chapterNum} 頁的小說")
 
+start_time = time.time()
 for i in range(d1.chapterNum):
     d1.writer(f"{file_name}.txt",d1.chapterNames[d1.chapterNum-1-i],d1.novelContent[d1.chapterNum-1-i])
 
-
 end_time = time.time()
-
-print(f"{end_time - start_time} 秒爬取 {d1.chapterNum} 頁的小說")
+print(f"{end_time - start_time} 秒寫入 {d1.chapterNum} 頁的小說")
 print('下載完成')

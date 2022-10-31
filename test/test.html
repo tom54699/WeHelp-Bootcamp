@@ -14,6 +14,14 @@
             background-color: rgb(174, 214, 154);
             width: 200px;height: 100px;
         }
+        .box3{
+            background-color: rgb(101, 170, 227);
+            width: 200px;height: 100px;
+        }
+        .box4{
+            background-color: rgb(241, 186, 104);
+            width: 200px;height: 100px;
+        }
         .dragging{
             opacity: 0.25;
         }
@@ -25,16 +33,18 @@
 <body>
     <div id="drag-drop-basic">
         <div class="box1" id="source-container" data-role="drag-drop-container">
-          <div id="drag-source" draggable="true">1</div>
+          <div id="a" draggable="true">1</div>
+          <div id="b" draggable="true">2</div>
         </div>
         <div class="box2" id="target-container" data-role="drag-drop-container"></div>
+        <div class="box3" id="target-container1" data-role="drag-drop-container"></div>
+        <div class="box4" id="target-container2" data-role="drag-drop-container"></div>
     </div>
-    <ul class="drag-sort-enable">
-        <li>Application</li>
-        <li>Blank</li>
-        <li>Class</li>
-        <li>Data</li>
-        <li>Element</li>
+    <ul id="items-list" class="moveable">
+        <li>One</li>
+        <li>Two</li>
+        <li>Three</li>
+        <li>Four</li>
     </ul>
     <script>
         // 多物件
@@ -44,7 +54,6 @@
         })
 
         function dragStart (e) {
-
             e.dataTransfer.setData('text/plain', e.target.id)
         }
         // 多容器
@@ -68,42 +77,90 @@
         }
 
         // list
+        /*
         function enableDragSort(listClass) {
-            const sortableLists = document.getElementsByClassName(listClass);
-            Array.prototype.map.call(sortableLists, (list) => {enableDragList(list)});
+        const sortableLists = document.getElementsByClassName(listClass);
+        Array.prototype.map.call(sortableLists, (list) => {enableDragList(list)});
         }
 
         function enableDragList(list) {
-            Array.prototype.map.call(list.children, (item) => {enableDragItem(item)});
+        Array.prototype.map.call(list.children, (item) => {enableDragItem(item)});
         }
 
         function enableDragItem(item) {
-            item.setAttribute('draggable', true)
-            item.ondrag = handleDrag;
-            item.ondragend = handleDrop;
+        item.setAttribute('draggable', true)
+        item.ondrag = handleDrag;
+        item.ondragend = handleDrop;
         }
 
         function handleDrag(item) {
-            const selectedItem = item.target,
-            list = selectedItem.parentNode,
-            x = event.clientX,
-            y = event.clientY;
+        const selectedItem = item.target,
+                list = selectedItem.parentNode,
+                x = event.clientX,
+                y = event.clientY;
         
-            selectedItem.classList.add('drag-sort-active');
-            let swapItem = document.elementFromPoint(x, y) === null ? selectedItem : document.elementFromPoint(x, y);
-            
-            if (list === swapItem.parentNode) {
-                swapItem = swapItem !== selectedItem.nextSibling ? swapItem : swapItem.nextSibling;
-                list.insertBefore(selectedItem, swapItem);
-            }
+        selectedItem.classList.add('drag-sort-active');
+        let swapItem = document.elementFromPoint(x, y) === null ? selectedItem : document.elementFromPoint(x, y);
+
+        
+        if (list === swapItem.parentNode) {
+            swapItem = swapItem !== selectedItem.nextSibling ? swapItem : swapItem.nextSibling;
+            list.insertBefore(selectedItem, swapItem);
+
+        }
         }
 
         function handleDrop(item) {
-            item.target.classList.remove('drag-sort-active');
+        item.target.classList.remove('drag-sort-active');
         }
 
-        (()=> {enableDragSort('drag-sort-enable')})();
+        (()=> {enableDragSort('moveable')})();
+        */
+        let items = document.querySelectorAll('#items-list > li')
+        items.forEach(item => {
+            item.setAttribute('draggable', true)
+            item.addEventListener('dragstart', dragStart)
+            item.addEventListener('drop', dropped)
+            item.addEventListener('dragenter', cancelDefault)
+            item.addEventListener('dragover', cancelDefault)
+        })
+        function dragStart (e) {
+            document.querySelector('ul').addEventListener('click', function (e) {
+            nodelist = document.querySelectorAll('ul li')
+            arr = Array.from(nodelist)
+            index = arr.indexOf(e.target)
+
+            // 转换数组同样可以使用Array.from()
+        });
+            var index = e.dataTransfer.getData('text/plain')
+            e.dataTransfer.setData('text/plain', index)
+        }
+        function dropped (e) {
+            cancelDefault(e)
+            
+            // get new and old index
+            let oldIndex = e.dataTransfer.getData('text/plain')
+            let target = e.target
+            let newIndex = target.index()
+            
+            // remove dropped items at old place
+            let dropped = $(this).parent().children().eq(oldIndex).remove()
+
+            // insert the dropped items at new place
+            if (newIndex < oldIndex) {
+                target.before(dropped)
+            } else {
+                target.after(dropped)
+            }
+            }
+
+            function cancelDefault (e) {
+            e.preventDefault()
+            e.stopPropagation()
+            return false
+        }
 
     </script>
+    
 </body>
 </html>

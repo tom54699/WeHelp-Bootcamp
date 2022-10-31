@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會員頁</title>
+    <link rel="stylesheet" type="text/css" href="/static/CSS/member.css">
+</head>
+<body>
+    <nav>
+        <div>
+            <div>歡迎光臨，這是會員頁</div>
+        </div>
+    </nav>
+    <main>
+        <div>
+            <div>
+                <div>恭喜你{{name}}先生/小姐，成功登入系統</div>
+                <a href="/signout">登出系統</a>
+            </div>
+        </div>
+    </main>
+    <br/>
+    <hr/>
+    <article>
+        <div>
+            <div class="block">
+                <label>查詢會員姓名</label>
+                <label> <input id="nameQueryInput" type="text"  placeholder="請輸入姓名"/> <button id="nameQuery">查詢</button></label>
+                <div class="nameQuery">
+                
+                </div>
+            </div>
+        </div>
+    </article>
+    <br/>
+    <hr/>
+    <article>
+        <div>
+            <div class="block">
+                <label>更新我的姓名</label>
+                <label> <input id="nameUpdateInput" type="text" placeholder="請輸入新的姓名"/> <button id="nameUpdate">更新</button></label>
+                <div class="nameUpdate">
+                
+                </div>
+            </div>
+        </div>
+    </article>
+    <br/>
+    <hr/>
+    <article>
+        <div>
+            <div class="block">
+                <label>快來留言吧</label>
+                <label>內容 <input id="contentInput" type="text" name="content" placeholder="請輸入內容"/></label>
+                <div><button id="contentSend">送出</button></div>
+            </div>
+        </div>
+    </article>
+    <br/>
+    <hr/>
+    <article>
+        <div>
+            <div><strong>留言欄位</strong><button id="deleteAll">清空留言(包括資料庫的紀錄)</button></div>
+            <div class="message">
+
+            </div>
+        </div>
+    </article>
+    <script src="/static/JS/member.js"></script>
+</body>
+</html>
