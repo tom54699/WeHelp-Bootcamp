@@ -169,13 +169,19 @@ nameUpdate.addEventListener("click",async function(){
         console.log("姓名查詢回傳的資料",data["data"])
         // 準備append資料
         let nameUpdateNode = document.querySelector(".nameUpdate")
+        let welcomeNode = document.querySelector(".welcome")
+        welcomeUpdate = document.createElement("div")
         nameUpdateResult = document.createElement("div")
         // 如果是error
         if(data["error"]== "true"){
+            welcomeUpdate.textContent = `恭喜你${nameUpdateValue}先生/小姐，成功登入系統`
+            welcomeNode.replaceChild(welcomeUpdate,welcomeNode.firstElementChild)
             nameUpdateResult.textContent = "更新失敗"
             nameUpdateNode.append(nameUpdateResult)
         }
         else{
+            welcomeUpdate.textContent = `恭喜你${nameUpdateValue}先生/小姐，成功登入系統`
+            welcomeNode.replaceChild(welcomeUpdate,welcomeNode.firstElementChild)
             nameUpdateResult.textContent = "更新成功"
             nameUpdateNode.append(nameUpdateResult)
         }
