@@ -99,54 +99,63 @@ def signout():
 
 @app.route("/message",methods=["POST"])
 def sendmessage():
-    id = session["id"]
-    print(session)
- 
-    content = request.json
+    if "name" in session:
+        id = session["id"]
+        print(session)
     
-    content = content["content"]
-    insert = "INSERT INTO message(member_id,content)VALUES(%s,%s)"
-    cursor.execute(insert,(id,content))
-    mydb.commit()
-    
-    # 文章編號
-    check = "select member.name,message.id,message.member_id,message.content,message.time from member inner join message on member.id = message.member_id where content = %s and member_id = %s;"
-    cursor.execute(check, (content,id))
-    if cursor.rowcount == 0:
-        return redirect("/error?error=資料庫找不到文章")
-    for i in cursor:
-        data = {
-            "content": content,
-            "message_id": i[1],
-            "name": i[0],
-            "time":i[4]
-        }
-    return jsonify(data)
+        content = request.json
+        
+        content = content["content"]
+        insert = "INSERT INTO message(member_id,content)VALUES(%s,%s)"
+        cursor.execute(insert,(id,content))
+        mydb.commit()
+        
+        # 文章編號
+        check = "select member.name,message.id,message.member_id,message.content,message.time from member inner join message on member.id = message.member_id where content = %s and member_id = %s;"
+        cursor.execute(check, (content,id))
+        if cursor.rowcount == 0:
+            return redirect("/error?error=資料庫找不到文章")
+        for i in cursor:
+            data = {
+                "content": content,
+                "message_id": i[1],
+                "name": i[0],
+                "time":i[4]
+            }
+        return jsonify(data)
+    else:
+        return redirect("/")
 
 @app.route("/getMessage")
 def getMessage():
-    id = session["id"]
-    print(session)
-    
-    check = "select member.name,message.id,message.member_id,message.content from member inner join message on member.id = message.member_id;"
-    cursor.execute(check)
-    if cursor.rowcount == 0:
-        return redirect("/error?error=資料庫找不到文章")
-    
-    data = {}
-    for i in cursor:
-        # 傳送實際id 未來要刪除可能比較好做
-        data.update({f"{i[1]}":f"{i[0]}: {i[3]}"})
-    return jsonify(data)
+    if "name" in session:
+        id = session["id"]
+        print(session)
+        
+        check = "select member.name,message.id,message.member_id,message.content from member inner join message on member.id = message.member_id;"
+        cursor.execute(check)
+        if cursor.rowcount == 0:
+            return redirect("/error?error=資料庫找不到文章")
+        
+        data = {}
+        for i in cursor:
+            # 傳送實際id 未來要刪除可能比較好做
+            data.update({f"{i[1]}":f"{i[0]}: {i[3]}"})
+        return jsonify(data)
+    else:
+        return redirect("/")
 
 @app.route("/deleteAll",methods=["DELETE"])
 def deleteAll():
-    # 有兩種方式
-    delete = "TRUNCATE TABLE message;"  #這種會把資料全部清空,id也歸零
-    # delete = "TRUNCATE TABLE message;"
-    cursor.execute(delete)
-    mydb.commit()
-    return jsonify({"status":"成功清除"})
+    if "name" in session:
+        # 有兩種方式
+        delete = "TRUNCATE TABLE message;"  #這種會把資料全部清空,id也歸零
+        # delete = "TRUNCATE TABLE message;"
+        cursor.execute(delete)
+        mydb.commit()
+        return jsonify({"status":"成功清除"})
+    else:
+        return redirect("/")
 
 # week-7 查詢會員資料api
 error_message = {
@@ -182,7 +191,6 @@ def member_name_query():
         print(ex)
         return jsonify(error_message)
 @app.route("/api/member",methods=["PATCH"])
-
 def update_name():
     try:
         if "name" in session:
